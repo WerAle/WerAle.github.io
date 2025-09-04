@@ -1,0 +1,10 @@
+{
+  "name": "Amore Della Mia Vita",
+  "short_name": "Amore",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#d0aaff",
+  "gcm_sender_id": "482941778795"
+}
