@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Site AW</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preload" as="audio" href="iris-violino.mp3" />
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      try {
+        await OneSignal.init({
+          appId: "9999c884-3af5-451f-8084-5e252cff86ce",
+          notifyButton: {
+            enable: true
+          },
+          // allowLocalhostAsSecureOrigin: true // use se testar localmente
+        });
+        console.log("OneSignal inicializado com sucesso!");
+
+        // URL padrão quando notificação for clicada
+        OneSignal.Notifications.setDefaultUrl("https://werale.github.io/AmoreDellaMiaVita/");
+
+        // Escutando clique em notificação
+        OneSignal.Notifications.addEventListener("click", (event) => {
+          console.log("Notificação clicada:", event);
+        });
+
+        // Escutando recebimento de notificação
+        OneSignal.Notifications.addEventListener("foregroundWillDisplay", (event) => {
+          console.log("Notificação recebida:", event);
+        });
+
+        // Mudança de inscrição
+        OneSignal.User.PushSubscription.addEventListener("change", (event) => {
+          console.log("Inscrição alterada:", event.current);
+        });
+
+      } catch (e) {
+        console.error("Erro na inicialização do OneSignal:", e);
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="intro" id="intro">
+  <div class="faixa">
+    <div class="iniciais" id="gatilho">AW</div>
+  </div>
+</div>
+  
+  <div class="conteudo oculto" id="conteudo">
+    <audio id="musica" src="iris-violino.mp3"></audio>
+
+    <main>
+      <h1>Per l'amore della mia vita</h1>
+      
+      <div class="mensagem">
+  <p>É meu amor, eu disse que estava fazendo seu presente, este site é só nosso, é o nosso cantinho,</p>
+  <p>funciona 24h por dia e 7 dias por semana, para você sempre poder entrar e lembrar:</p>
+  <p>EU TE AMO! ❤</p>
+</div>
+
+      <div class="botoes">
+        <a href="memorias.html" class="botao">Nossas Memórias</a>
+        <a href="mensagem.html" class="botao">Cartinha</a>
+      </div>
+    </main>
+
+    <div class="relogio-amor">
+  <div id="tempo-juntos">Carregando...</div>
+  <p>...desde o nosso sim ❤</p>
+</div>
+
+<style>
+  .relogio-amor {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: 'Georgia', serif;
+    color: white;
+  }
+
+  .relogio-amor p {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    color: #d0aaff;
+  }
+</style>
+
+<script>
+  function atualizarRelogioAmor() {
+    const inicio = new Date("2024-05-03T19:00:00");
+    const agora = new Date();
+
+    let anos = agora.getFullYear() - inicio.getFullYear();
+    let meses = agora.getMonth() - inicio.getMonth();
+    let dias = agora.getDate() - inicio.getDate();
+    let horas = agora.getHours() - inicio.getHours();
+    let minutos = agora.getMinutes() - inicio.getMinutes();
+    let segundos = agora.getSeconds() - inicio.getSeconds();
+
+    if (segundos < 0) {
+      segundos += 60;
+      minutos--;
+    }
+    if (minutos < 0) {
+      minutos += 60;
+      horas--;
+    }
+    if (horas < 0) {
+      horas += 24;
+      dias--;
+    }
+    if (dias < 0) {
+      const ultimoDiaDoMesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+      dias += ultimoDiaDoMesAnterior;
+      meses--;
+    }
+    if (meses < 0) {
+      meses += 12;
+      anos--;
+    }
+
+    const tempo = `${anos} ano${anos !== 1 ? 's' : ''}, ${meses} mês${meses !== 1 ? 'es' : ''}, ${dias} dia${dias !== 1 ? 's' : ''}, ${horas}h ${minutos}min ${segundos}s`;
+    document.getElementById('tempo-juntos').textContent = tempo;
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    atualizarRelogioAmor();
+    setInterval(atualizarRelogioAmor, 1000);
+  });
+</script>
+
+    <footer>
+      Feito com amor, AW 💌
+    </footer>
+    
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
