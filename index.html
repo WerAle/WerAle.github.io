@@ -6,44 +6,18 @@
   <title>Site AW</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preload" as="audio" href="iris-violino.mp3" />
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-
-  <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      try {
-        await OneSignal.init({
-          appId: "9999c884-3af5-451f-8084-5e252cff86ce",
-          notifyButton: {
-            enable: true
-          },
-          // allowLocalhostAsSecureOrigin: true // use se testar localmente
-        });
-        console.log("OneSignal inicializado com sucesso!");
-
-        // URL padrão quando notificação for clicada
-        OneSignal.Notifications.setDefaultUrl("https://werale.github.io/AmoreDellaMiaVita/");
-
-        // Escutando clique em notificação
-        OneSignal.Notifications.addEventListener("click", (event) => {
-          console.log("Notificação clicada:", event);
-        });
-
-        // Escutando recebimento de notificação
-        OneSignal.Notifications.addEventListener("foregroundWillDisplay", (event) => {
-          console.log("Notificação recebida:", event);
-        });
-
-        // Mudança de inscrição
-        OneSignal.User.PushSubscription.addEventListener("change", (event) => {
-          console.log("Inscrição alterada:", event.current);
-        });
-
-      } catch (e) {
-        console.error("Erro na inicialização do OneSignal:", e);
-      }
+  <link rel="manifest" href="/manifest.json">
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "9999c884-3af5-451f-8084-5e252cff86ce",
+      notifyButton: { enable: true }
     });
-  </script>
+    OneSignal.Notifications.setDefaultUrl("https://werale.github.io/");
+  });
+</script>
 </head>
 <body>
   <div class="intro" id="intro">
